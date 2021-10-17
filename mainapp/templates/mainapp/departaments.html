@@ -1,236 +1,192 @@
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Аудит дат. Список сотрудников</title>
-  <link href="/static/css/all.css" rel="stylesheet">
-  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="wrapper">
-  <div class="top">
-    <!--Top menu-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a href="#" class="show-hide-sidemenu navbar-brand"><i class="fas fa-bars"></i></a>
-        <a class="navbar-brand" href="/">Экзамены, аттестации, инструмент</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="nav nav-pills ms-auto">
-            <li class="nav-item">
-              <a class="nav-link userprofile text-body" href="profile.html">
-                <i class="fas fa-user-circle"></i>
-                <i class="fas fa-bell text-warning"></i>
-                User
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-body" href="/">
-                <i class="fas fa-users-cog"></i>
-                Управление
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-danger" href="/">
-                Выйти
-                <i class="fas fa-sign-out-alt"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-body" href="#">
-                <i class="fas fa-sign-in-alt"></i>
-                Войти
-              </a>
-            </li>
-          </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Фамилия" aria-label="Search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
-          </form>
-        </div>
-      </div>
-    </nav>
-    <!--/Top menu-->
-    <div class="d-flex page-content">
-      <!--Side menu-->
-      <div class="sidemenu">
-        <div class="list-group shadow-sm">
-          <h2 class="list-group-item mb-0">Списки</h2>
-          <a href="/departaments/" class="list-group-item active">
-            Сотрудники
-          </a>
-          <a href="/items/" class="list-group-item">
-            Предметы
-          </a>
-          <a href="/item_types/" class="list-group-item">
-            Виды&nbspпредметов
-          </a>
-        </div>
-      </div>
-      <!--/Side menu-->
-
-      <div class="flex-grow-1">
+{% block content %}
+    <div class="flex-grow-1">
         <!--Content top-menu-->
         <ul class="nav shadow-sm">
-          <div class="d-flex mt-1 ms-1 mb-1">
-            <li class="nav-item dropdown">
-              <select class="form-select-sm">
-                <option selected>Город</option>
-                <option value="1">Уфа</option>
-                <option value="2">Стерлитамак</option>
-                <option value="3">Нефтекамск</option>
-              </select>
-            </li>
-            <li class="nav-item dropdown">
-              <select class="form-select-sm">
-                <option selected>Организация</option>
-                <option value="1">Уфанет</option>
-                <option value="2">СВОС</option>
-                <option value="3">Авантис</option>
-              </select>
-            </li>
-            <li class="nav-item dropdown">
-              <select class="form-select-sm">
-                <option selected>Подразделение</option>
-                <option value="1">Отдел подключений</option>
-                <option value="2">Монтажный отдел</option>
-                <option value="3">Отдел оптиков-сварщиков</option>
-              </select>
-            </li>
-            <li class="nav-item dropdown">
-              <select class="form-select-sm">
-                <option selected>Бригадир</option>
-                <option value="1">Швыавыпв Давыпавпп Ивыпваравр</option>
-                <option value="2">Швыавыпв Давыпавпп Ивыпваравр</option>
-                <option value="3">Швыавыпв Давыпавпп Ивыпваравр</option>
-              </select>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="btn btn-outline-primary btn-sm">Запросить</a>
-            </li>
-          </div>
+            <div class="d-flex mt-1 ms-1 mb-1">
+                <li class="nav-item dropdown">
+                    <select class="form-select-sm">
+                        <option selected>Город</option>
+                        <option value="1">Уфа</option>
+                        <option value="2">Стерлитамак</option>
+                        <option value="3">Нефтекамск</option>
+                    </select>
+                </li>
+                <li class="nav-item dropdown">
+                    <select class="form-select-sm">
+                        <option selected>Организация</option>
+                        <option value="1">Уфанет</option>
+                        <option value="2">СВОС</option>
+                        <option value="3">Авантис</option>
+                    </select>
+                </li>
+                <li class="nav-item dropdown">
+                    <select class="form-select-sm">
+                        <option selected>Подразделение</option>
+                        <option value="1">Отдел подключений</option>
+                        <option value="2">Монтажный отдел</option>
+                        <option value="3">Отдел оптиков-сварщиков</option>
+                    </select>
+                </li>
+                <li class="nav-item dropdown">
+                    <select class="form-select-sm">
+                        <option selected>Бригадир</option>
+                        <option value="1">Швыавыпв Давыпавпп Ивыпваравр</option>
+                        <option value="2">Швыавыпв Давыпавпп Ивыпваравр</option>
+                        <option value="3">Швыавыпв Давыпавпп Ивыпваравр</option>
+                    </select>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="btn btn-outline-primary btn-sm">Запросить</a>
+                </li>
+            </div>
         </ul>
         <!--/Content top-menu-->
         <p class="ms-3 mt-3 mb-0">
-          <a href="departaments.html">г. Нефтекамск</a> > <a href="departaments.html">ООО СВОС</a> > 
-          <a href="departaments.html">Отдел оптиков-сварщиков</a> > бр. Удинский Дмитрий Игоревич
+            <a href="departaments.html">г. Нефтекамск</a> > <a href="departaments.html">ООО СВОС</a> >
+            <a href="departaments.html">Отдел оптиков-сварщиков</a> > бр. Удинский Дмитрий Игоревич
         </p>
         <div id="layoutSidenav_content">
-          <main>
-            <div class="container-fluid">
-              <h1 class="">Список сотрудников</h1>
-              <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                  <i class="fas fa-table mr-1"></i> Полный список
+            <main>
+                <div class="container-fluid">
+                    <h1 class="">Список сотрудников</h1>
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i> Полный список
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>Город</th>
+                                        <th>Организация</th>
+                                        <th>Подразделение</th>
+                                        <th>ФИО бригадира</th>
+                                        <th>ФИО сотрудника</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Город</th>
+                                        <th>Организация</th>
+                                        <th>Подразделение</th>
+                                        <th>ФИО бригадира</th>
+                                        <th>ФИО сотрудника</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
+                                            СВОС</a></td>
+                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
+                                            оптиков-сварщиков</a></td>
+                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
+                                            Дмитрий Игоревич</a></td>
+                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
+                                            Дмитрий
+                                            Игоревич</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="city_form.html" class="btn btn-outline-primary">Добавить город</a>
+                            <a href="company_form.html" class="btn btn-outline-primary">Добавить организацию</a>
+                            <a href="departament_form.html" class="btn btn-outline-primary">Добавить подразделение</a>
+                            <a href="profile.html" class="btn btn-outline-primary">Добавить сотрудника</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>Город</th>
-                          <th>Организация</th>
-                          <th>Подразделение</th>
-                          <th>ФИО бригадира</th>
-                          <th>ФИО сотрудника</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>Город</th>
-                          <th>Организация</th>
-                          <th>Подразделение</th>
-                          <th>ФИО бригадира</th>
-                          <th>ФИО сотрудника</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="city_form.html">г. Нефтекамск</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО СВОС</a></td>
-                          <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел оптиков-сварщиков</a></td>
-                          <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский Дмитрий Игоревич</a></td>
-                          <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский Дмитрий Игоревич</a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <a href="city_form.html" class="btn btn-outline-primary">Добавить город</a>
-                  <a href="company_form.html" class="btn btn-outline-primary">Добавить организацию</a>
-                  <a href="departament_form.html" class="btn btn-outline-primary">Добавить подразделение</a>
-                  <a href="profile.html" class="btn btn-outline-primary">Добавить сотрудника</a>
-                </div>
-              </div>
-            </div>
-          </main>
+            </main>
         </div>
-      </div>
     </div>
-  </div>
-  <footer class="py-4 bg-light mt-auto">
-    <div class="container-fluid">
-      <div class="d-flex align-items-center justify-content-between small">
-        <div class="text-muted">Copyright &copy; Удинский Дмитрий 2021</div>
-      </div>
-    </div>
-  </footer>
-  <script src="/static/js/fontawesome-icons.js"></script>
-  <script src="/static/js/jquery-3.6.0.slim.min.js"></script>
-  <script src="/static/js/bootstrap.bundle.min.js"></script>
-  <script src="/static/js/burger.js"></script>
-</body>
-
-</html>
+{% endblock %}
