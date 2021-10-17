@@ -1,0 +1,31 @@
+зайти в папку в которой будет лежать папка вирт окружения.
+python3.9 -m venv env
+source env/bin/activate
+pip install pillow
+pip install django==3.2
+
+создаём репо на гитхабе
+копируем в папку для проекта файл гитигнор
+git init
+echo "initial commit" > README.md
+git add *
+git add .gitignore
+git commit -am "initial commit"
+git remote add origin git@github.com:stopguard/datescontrol.git
+git push --set-upstream origin master
+git branch br1
+git checkout br1
+
+в пайчарм
+New project в прошке выбрать django. 
+выставить корневую папку для проекта
+выбрать созданное ранее вирт окружение
+
+для старта dev-сервера
+python manage.py runserver
+
+для создания приложения в вирт-окружении
+django-admin startapp app_name
+
+git add *
+git commit -am "mainapp started"
