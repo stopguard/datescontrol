@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аудит дат. Стартовая</title>
+  <link href="/static/css/all.css" rel="stylesheet">
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="wrapper">
+  <div class="top">
+    <!--Top menu-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="#" class="show-hide-sidemenu navbar-brand"><i class="fas fa-bars"></i></a>
+        <a class="navbar-brand" href="/">Экзамены, аттестации, инструмент</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav nav-pills ms-auto">
+            <li class="nav-item">
+              <a class="nav-link userprofile text-body" href="profile.html">
+                <i class="fas fa-user-circle"></i>
+                <i class="fas fa-bell text-warning"></i>
+                User
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-body" href="/">
+                <i class="fas fa-users-cog"></i>
+                Управление
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="/">
+                Выйти
+                <i class="fas fa-sign-out-alt"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-body" href="#">
+                <i class="fas fa-sign-in-alt"></i>
+                Войти
+              </a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Фамилия" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!--/Top menu-->
+    <div class="d-flex page-content">
+      <!--Side menu-->
+      <div class="sidemenu">
+        <div class="list-group shadow-sm">
+          <h2 class="list-group-item mb-0">Списки</h2>
+          <a href="/departaments/" class="list-group-item">
+            Сотрудники
+          </a>
+          <a href="/items/" class="list-group-item">
+            Предметы
+          </a>
+          <a href="/item_types/" class="list-group-item">
+            Виды&nbspпредметов
+          </a>
+        </div>
+      </div>
+      <!--/Side menu-->
+      <div class="flex-grow-1">
+        <div class="alert alert-warning text-center" role="alert">
+          Пожалуйста <a href="#" class="alert-link">авторизуйтесь</a>!
+        </div>
+        <div class="alert alert-warning text-center" role="alert">
+          ВНИМАНИЕ! Приближается окончание сроков действия!
+        </div>
+        <div class="alert alert-danger text-center" role="alert">
+          ВНИМАНИЕ! Имеются просрочки!
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center justify-content-between small">
+        <div class="text-muted">Copyright &copy; Удинский Дмитрий 2021</div>
+      </div>
+    </div>
+  </footer>
+  <script src="/static/js/fontawesome-icons.js"></script>
+  <script src="/static/js/jquery-3.6.0.slim.min.js"></script>
+  <script src="/static/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/js/burger.js"></script>
+</body>
+
+</html>
