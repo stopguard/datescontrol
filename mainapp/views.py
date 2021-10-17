@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from datetime import date
+from datetime import date, timedelta, datetime
 
 
 # Create your views here.
@@ -9,6 +9,7 @@ def index(request):
 
 
 def items(request):
+    today = datetime.now() + timedelta(hours=5)
     gived_items = [
         {
             'company': 'ООО СВОС',
@@ -65,11 +66,15 @@ def items(request):
             'check_to': date(2021, 12, 2),
         },
     ]
+    for el in gived_items:
+        if el['item_class'] == 'doc' and el['check_to'] > el['test_to']:
+            el['check_to'] = el['test_to']
     city_list = [
         ''
     ]
     context = {'page_title': 'список предметов',
-               'items': gived_items}
+               'items': gived_items,
+               'today': today}
     return render(request, 'mainapp/items.html', context)
 
 

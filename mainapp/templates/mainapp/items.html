@@ -139,7 +139,10 @@
                                     <tbody>
 
                                     {% for el in items %}
-                                        <tr>
+                                        <tr
+                                                {% if el.check_to < today %}
+                                                {% endif %}
+                                        >
                                             <td><a href="company_form.html">{{ el.company }}</a></td>
                                             <td><a href="departament_form.html">{{ el.departament }}</a></td>
                                             <td><a href="profile.html">{{ el.worker_name }}</a></td>
@@ -165,19 +168,10 @@
                                                 {% endif %}
                                             </td>
                                             <td class="text-center">
-
-                                                {% if el.item_class == 'doc' and el.check_to > el.test_to %}
-                                                    <input type="date" class="btn btn-light btn-sm"
-                                                           name="to"
-                                                           value="{{ el.test_to|date:'Y-m-d' }}"
-                                                    >
-                                                {% else %}
-                                                    <input type="date" class="btn btn-light btn-sm"
-                                                           name="to"
-                                                           value="{{ el.check_to|date:'Y-m-d' }}"
-                                                    >
-                                                {% endif %}
-
+                                                <input type="date" class="btn btn-light btn-sm"
+                                                       name="to"
+                                                       value="{{ el.check_to|date:'Y-m-d' }}"
+                                                >
                                             </td>
                                             <td><a href="#" class="btn btn-secondary btn-sm">Сохранить</a></td>
                                         </tr>
