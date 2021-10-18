@@ -6,38 +6,7 @@
         <!--Content top-menu-->
         <ul class="nav shadow-sm">
             <div class="d-flex mt-1 ms-1 mb-1">
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Город</option>
-                        <option value="1">Уфа</option>
-                        <option value="2">Стерлитамак</option>
-                        <option value="3">Нефтекамск</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Организация</option>
-                        <option value="1">Уфанет</option>
-                        <option value="2">СВОС</option>
-                        <option value="3">Авантис</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Подразделение</option>
-                        <option value="1">Отдел подключений</option>
-                        <option value="2">Монтажный отдел</option>
-                        <option value="3">Отдел оптиков-сварщиков</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Бригадир</option>
-                        <option value="1">Швыавыпв Давыпавпп Ивыпваравр</option>
-                        <option value="2">Швыавыпв Давыпавпп Ивыпваравр</option>
-                        <option value="3">Швыавыпв Давыпавпп Ивыпваравр</option>
-                    </select>
-                </li>
+                {% include 'mainapp/includes/brig_checker.html' %}
                 <li class="nav-item">
                     <a href="#" class="btn btn-outline-primary btn-sm">Запросить</a>
                 </li>
@@ -78,102 +47,67 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="city_form.html">г. Нефтекамск</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="company_form.html">ООО
-                                            СВОС</a></td>
-                                        <td><i class="fas fa-bell text-warning"></i> <a href="departament_form.html">Отдел
-                                            оптиков-сварщиков</a></td>
-                                        <td><i class="fas fa-bell text-danger"></i> <a href="departaments.html">Удинский
-                                            Дмитрий Игоревич</a></td>
-                                        <td><i class="fas fa-bell text-success"></i> <a href="items.html">Удинский
-                                            Дмитрий
-                                            Игоревич</a></td>
-                                    </tr>
+                                    {% for worker in workers %}
+                                        <tr>
+                                            <td><a href="city_form.html">{{ worker.city }}</a></td>
+                                            <td>
+                                                <i class="fas fa-bell
+                                                {% if worker.company.status == 'XX' %}
+                                                    text-danger
+                                                {% elif worker.company.status == 'VV' %}
+                                                    text-warning
+                                                {% elif worker.company.status == 'OO' %}
+                                                    text-info
+                                                {% else %}
+                                                    text-success
+                                                {% endif %}
+                                                "></i>
+                                                <a href="company_form.html">{{ worker.company.name }}</a>
+                                            </td>
+                                            <td>
+                                                <i class="fas fa-bell
+                                                {% if worker.departament.status == 'XX' %}
+                                                    text-danger
+                                                {% elif worker.departament.status == 'VV' %}
+                                                    text-warning
+                                                {% elif worker.departament.status == 'OO' %}
+                                                    text-info
+                                                {% else %}
+                                                    text-success
+                                                {% endif %}
+                                                "></i>
+                                                <a href="departament_form.html">{{ worker.departament.name }}</a>
+                                            </td>
+                                            <td>
+                                                <i class="fas fa-bell
+                                                {% if worker.brig_name.status == 'XX' %}
+                                                    text-danger
+                                                {% elif worker.brig_name.status == 'VV' %}
+                                                    text-warning
+                                                {% elif worker.brig_name.status == 'OO' %}
+                                                    text-info
+                                                {% else %}
+                                                    text-success
+                                                {% endif %}
+                                                "></i>
+                                                <a href="departaments.html">{{ worker.brig_name.name }}</a>
+                                            </td>
+                                            <td>
+                                                <i class="fas fa-bell
+                                                {% if worker.worker_name.status == 'XX' %}
+                                                    text-danger
+                                                {% elif worker.worker_name.status == 'VV' %}
+                                                    text-warning
+                                                {% elif worker.worker_name.status == 'OO' %}
+                                                    text-info
+                                                {% else %}
+                                                    text-success
+                                                {% endif %}
+                                                "></i>
+                                                <a href="items.html">{{ worker.worker_name.name }}</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>

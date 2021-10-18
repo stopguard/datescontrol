@@ -6,38 +6,7 @@
         <!--Content top-menu-->
         <ul class="nav shadow-sm">
             <div class="d-flex mt-1 ms-1 mb-1">
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Город</option>
-                        <option value="1">Уфа</option>
-                        <option value="2">Стерлитамак</option>
-                        <option value="3">Нефтекамск</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Организация</option>
-                        <option value="1">Уфанет</option>
-                        <option value="2">СВОС</option>
-                        <option value="3">Авантис</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Подразделение</option>
-                        <option value="1">Отдел подключений</option>
-                        <option value="2">Монтажный отдел</option>
-                        <option value="3">Отдел оптиков-сварщиков</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Бригадир</option>
-                        <option value="1">Швыавыпв Давыпавпп Ивыпваравр</option>
-                        <option value="2">Швыавыпв Давыпавпп Ивыпваравр</option>
-                        <option value="3">Швыавыпв Давыпавпп Ивыпваравр</option>
-                    </select>
-                </li>
+                {% include 'mainapp/includes/brig_checker.html' %}
                 <li class="nav-item dropdown">
                     <select class="form-select-sm">
                         <option selected>Тип</option>
@@ -48,9 +17,9 @@
                 <li class="nav-item dropdown">
                     <select class="form-select-sm">
                         <option selected>Наименование</option>
-                        <option value="1">Электробезопасность 5гр</option>
-                        <option value="2">ПТМ</option>
-                        <option value="2">Высота 2гр</option>
+                        {% for item in item_types %}
+                            <option value="{{ forloop.counter }}">{{ item }}</option>
+                        {% endfor %}
                     </select>
                 </li>
                 <li class="nav-item d-flex align-items-center">
@@ -139,10 +108,15 @@
                                     <tbody>
 
                                     {% for el in items %}
-                                        <tr
-                                                {% if el.check_to < today %}
+                                        <tr class="
+                                                {% if el.status == 'XX' %}
+                                                    table-danger
+                                                {% elif el.status == 'VV' %}
+                                                    table-warning
+                                                {% elif el.status == 'OO' %}
+                                                    table-info
                                                 {% endif %}
-                                        >
+                                        ">
                                             <td><a href="company_form.html">{{ el.company }}</a></td>
                                             <td><a href="departament_form.html">{{ el.departament }}</a></td>
                                             <td><a href="profile.html">{{ el.worker_name }}</a></td>
