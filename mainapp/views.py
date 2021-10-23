@@ -19,10 +19,10 @@ def items(request):
             'item_class': 'doc',
             'item_name': 'Электробезопасность 3гр',
             'inv_num': 'КА1234',
-            'check_for': date(2018, 10, 2),
-            'test_for': date(2020, 11, 20),
-            'check_to': date(2022, 10, 2),
-            'test_to': date(2022, 11, 20),
+            'test_for': date(2018, 10, 2),
+            'change_for': date(2020, 11, 20),
+            'test_to': date(2022, 10, 2),
+            'change_to': date(2022, 11, 20),
         },
         {
             'company': 'ООО СВОС',
@@ -31,8 +31,8 @@ def items(request):
             'item_class': 'tool',
             'item_name': 'Лестница 3*9',
             'inv_num': 'КА1234',
-            'check_for': date(2018, 10, 2),
-            'check_to': date(2021, 10, 2),
+            'test_for': date(2018, 10, 2),
+            'test_to': date(2021, 10, 2),
         },
         {
             'company': 'ООО СВОС',
@@ -41,10 +41,10 @@ def items(request):
             'item_class': 'doc',
             'item_name': 'ПТМ',
             'inv_num': 'КА1234',
-            'check_for': date(2020, 11, 10),
             'test_for': date(2020, 11, 10),
-            'check_to': date(2021, 11, 10),
+            'change_for': date(2020, 11, 10),
             'test_to': date(2021, 11, 10),
+            'change_to': date(2021, 11, 10),
         },
         {
             'company': 'ООО СВОС',
@@ -53,8 +53,8 @@ def items(request):
             'item_class': 'tool',
             'item_name': 'Лестница динамика',
             'inv_num': 'КА1234',
-            'check_for': date(2018, 10, 2),
-            'check_to': date(2021, 10, 2),
+            'test_for': date(2018, 10, 2),
+            'test_to': date(2021, 10, 2),
         },
         {
             'company': 'ООО СВОС',
@@ -63,8 +63,8 @@ def items(request):
             'item_class': 'tool',
             'item_name': 'Лестница 3*6',
             'inv_num': 'КА1234',
-            'check_for': date(2018, 12, 2),
-            'check_to': date(2021, 12, 2),
+            'test_for': date(2018, 12, 2),
+            'test_to': date(2021, 12, 2),
         },
     ]
     city_list = ['Уфа', 'Стерлитамак', 'Нижний Новгород', ]
@@ -73,9 +73,9 @@ def items(request):
     brigadier_list = ['dsfdsfsdfds', 'fdsfdsfsdfdsf', 'ffgggddssss']
     item_list = ['Электробезопасность 5гр', 'ПТМ', 'Высота 2гр']
     for el in gived_items:
-        if el['item_class'] == 'doc' and el['check_to'] > el['test_to']:
-            el['check_to'] = el['test_to']
-        delta = (el['check_to'] - today).days
+        if el['item_class'] == 'doc' and el['test_to'] > el['change_to']:
+            el['test_to'] = el['change_to']
+        delta = (el['test_to'] - today).days
         if delta > 90:
             el['status'] = 'OK'
         elif delta > 30:
@@ -166,5 +166,102 @@ def departaments(request):
 
 
 def item_types(request):
-    context = {'page_title': 'типы предметов'}
+    today = datetime.now() + timedelta(hours=5)
+    today = date(today.year, today.month, today.day)
+    docs = [
+        {
+            'group': 'Электробезопасность',
+            'name': 'Электробезопасность 2гр',
+            'change_interval': 12,
+            'test_interval': 12,
+        },
+        {
+            'group': 'Электробезопасность',
+            'name': 'Электробезопасность 3гр',
+            'change_interval': 12,
+            'test_interval': 12,
+        },
+        {
+            'group': 'Электробезопасность',
+            'name': 'Электробезопасность 4гр',
+            'change_interval': 12,
+            'test_interval': 12,
+        },
+        {
+            'group': 'Электробезопасность',
+            'name': 'Электробезопасность 5гр',
+            'change_interval': 12,
+            'test_interval': 12,
+        },
+        {
+            'group': 'Высота',
+            'name': 'Высота 1гр',
+            'change_interval': 36,
+            'test_interval': 12,
+        },
+        {
+            'group': 'Высота',
+            'name': 'Высота 2гр',
+            'change_interval': 36,
+            'test_interval': 12,
+        },
+        {
+            'group': 'Высота',
+            'name': 'Высота 3гр',
+            'change_interval': 60,
+            'test_interval': 12,
+        },
+    ]
+    tools = [
+        {
+            'group': 'Лестницы',
+            'name': 'Лестница 3*6',
+            'test_interval': 12,
+        },
+        {
+            'group': 'Лестницы',
+            'name': 'Лестница 3*9',
+            'test_interval': 12,
+        },
+        {
+            'group': 'Лестницы',
+            'name': 'Лестница 3*11',
+            'test_interval': 12,
+        },
+        {
+            'group': 'Лестницы',
+            'name': 'Лестница 3*12',
+            'test_interval': 12,
+        },
+        {
+            'group': 'Электроинструмент',
+            'name': 'Перфоратор аккум.',
+            'test_interval': 6,
+        },
+        {
+            'group': 'Электроинструмент',
+            'name': 'Перфоратор пров.',
+            'test_interval': 6,
+        },
+        {
+            'group': 'Электроинструмент',
+            'name': 'Перфоратор больш.',
+            'test_interval': 6,
+        },
+        {
+            'group': 'Электроинструмент',
+            'name': 'Шуруповёрт',
+            'test_interval': 6,
+        },
+        {
+            'group': 'Электроинструмент',
+            'name': 'Болгарка аккум.',
+            'test_interval': 6,
+        },
+    ]
+    context = {'page_title': 'типы предметов',
+               'docs': docs,
+               'tools': tools,
+               'today': today,
+               }
     return render(request, 'mainapp/item_types.html', context)

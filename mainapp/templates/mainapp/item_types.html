@@ -51,11 +51,12 @@
                                             </tr>
                                             </tfoot>
                                             <tbody>
+                                            {% for el in docs %}
                                             <tr>
-                                                <td><a href="item_group_details.html">Электробезопасность</a></td>
-                                                <td><a href="item_type_details.html">Электробезопасность 2гр</a></td>
-                                                <td>12</td>
-                                                <td>12</td>
+                                                <td><a href="item_group_details.html">{{ el.group }}</a></td>
+                                                <td><a href="item_type_details.html">{{ el.name }}</a></td>
+                                                <td>{{ el.test_interval }}</td>
+                                                <td>{{ el.change_interval }}</td>
                                                 <td>
                                                     <a href="items.html" class="btn btn-secondary btn-sm">Этот тип
                                                         удостоверений</a>
@@ -63,42 +64,7 @@
                                                         наименование</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Электробезопасность</a></td>
-                                                <td><a href="item_type_details.html">Электробезопасность 3гр</a></td>
-                                                <td>12</td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Этот тип
-                                                        удостоверений</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Электробезопасность</a></td>
-                                                <td><a href="item_type_details.html">Электробезопасность 4гр</a></td>
-                                                <td>12</td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Этот тип
-                                                        удостоверений</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Электробезопасность</a></td>
-                                                <td><a href="item_type_details.html">Электробезопасность 5гр</a></td>
-                                                <td>12</td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Этот тип
-                                                        удостоверений</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -138,87 +104,18 @@
                                             </tr>
                                             </tfoot>
                                             <tbody>
+                                            {% for el in tools %}
                                             <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница 3*06</a></td>
-                                                <td>12</td>
+                                                <td><a href="item_group_details.html">{{ el.group }}</a></td>
+                                                <td><a href="item_type_details.html">{{ el.name }}</a></td>
+                                                <td>{{ el.test_interval }}</td>
                                                 <td>
                                                     <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
                                                     <a href="items.html" class="btn btn-secondary btn-sm">Это
                                                         наименование</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница 3*09</a></td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница 3*12</a></td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница динамика</a></td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница столбовая 1м</a></td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница столбовая верх</a></td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Лестницы</a></td>
-                                                <td><a href="item_type_details.html">Лестница столбовая низ</a></td>
-                                                <td>12</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="item_group_details.html">Диэлектрический инструмент</a>
-                                                </td>
-                                                <td><a href="item_type_details.html">Перчатки диэлектрические</a></td>
-                                                <td>6</td>
-                                                <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
-                                                </td>
-                                            </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>

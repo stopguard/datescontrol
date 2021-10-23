@@ -131,20 +131,20 @@
                                             <td>{{ el.inv_num }}</td>
                                             <td class="text-center"><input type="date" class="btn btn-light btn-sm"
                                                                            name="check"
-                                                                           value="{{ el.check_for|date:'Y-m-d' }}"
+                                                                           value="{{ el.test_for|date:'Y-m-d' }}"
                                             ></td>
                                             <td class="text-center">
                                                 {% if el.item_class == 'doc' %}
                                                     <input type="date" class="btn btn-light btn-sm"
                                                            name="test"
-                                                           value="{{ el.test_for|date:'Y-m-d' }}"
+                                                           value="{{ el.change_for|date:'Y-m-d' }}"
                                                     >
                                                 {% endif %}
                                             </td>
                                             <td class="text-center">
                                                 <input type="date" class="btn btn-light btn-sm"
                                                        name="to"
-                                                       value="{{ el.check_to|date:'Y-m-d' }}"
+                                                       value="{{ el.test_to|date:'Y-m-d' }}"
                                                 >
                                             </td>
                                             <td><a href="#" class="btn btn-secondary btn-sm">Сохранить</a></td>
