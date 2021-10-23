@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="flex-grow-1">
+        <div class="alert alert-warning text-center" role="alert">
+            Пожалуйста <a href="#" class="alert-link">авторизуйтесь</a>!
+        </div>
+        <div class="alert alert-warning text-center" role="alert">
+            ВНИМАНИЕ! Приближается окончание сроков действия!
+        </div>
+        <div class="alert alert-danger text-center" role="alert">
+            ВНИМАНИЕ! Имеются просрочки!
+        </div>
+    </div>
+{% endblock %}
