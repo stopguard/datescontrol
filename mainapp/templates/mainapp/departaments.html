@@ -49,62 +49,42 @@
                                     <tbody>
                                     {% for worker in workers %}
                                         <tr>
-                                            <td><a href="city_form.html">{{ worker.city }}</a></td>
+                                            <td><a href="city_form.html">
+                                                {{ worker.departament.company.city.name }}
+                                            </a></td>
                                             <td>
-                                                <i class="fas fa-bell
-                                                {% if worker.company.status == 'XX' %}
-                                                    text-danger
-                                                {% elif worker.company.status == 'VV' %}
-                                                    text-warning
-                                                {% elif worker.company.status == 'OO' %}
-                                                    text-info
-                                                {% else %}
-                                                    text-success
-                                                {% endif %}
-                                                "></i>
-                                                <a href="company_form.html">{{ worker.company.name }}</a>
+                                                <a href="company_form.html">{{ worker.departament.company.name }}</a>
                                             </td>
                                             <td>
-                                                <i class="fas fa-bell
-                                                {% if worker.departament.status == 'XX' %}
-                                                    text-danger
-                                                {% elif worker.departament.status == 'VV' %}
-                                                    text-warning
-                                                {% elif worker.departament.status == 'OO' %}
-                                                    text-info
-                                                {% else %}
-                                                    text-success
-                                                {% endif %}
-                                                "></i>
                                                 <a href="departament_form.html">{{ worker.departament.name }}</a>
                                             </td>
                                             <td>
                                                 <i class="fas fa-bell
-                                                {% if worker.brig_name.status == 'XX' %}
+                                                {% if worker.brig.brig_status == 3 %}
                                                     text-danger
-                                                {% elif worker.brig_name.status == 'VV' %}
+                                                {% elif worker.brig.brig_status == 2 %}
                                                     text-warning
-                                                {% elif worker.brig_name.status == 'OO' %}
+                                                {% elif worker.brig.brig_status == 1 %}
                                                     text-info
                                                 {% else %}
                                                     text-success
                                                 {% endif %}
                                                 "></i>
-                                                <a href="departaments.html">{{ worker.brig_name.name }}</a>
+                                                <a href="departaments.html">{{ worker.brig.name }}</a>
                                             </td>
                                             <td>
                                                 <i class="fas fa-bell
-                                                {% if worker.worker_name.status == 'XX' %}
+                                                {% if worker.status == 3 %}
                                                     text-danger
-                                                {% elif worker.worker_name.status == 'VV' %}
+                                                {% elif worker.status == 2 %}
                                                     text-warning
-                                                {% elif worker.worker_name.status == 'OO' %}
+                                                {% elif worker.status == 1 %}
                                                     text-info
                                                 {% else %}
                                                     text-success
                                                 {% endif %}
                                                 "></i>
-                                                <a href="items.html">{{ worker.worker_name.name }}</a>
+                                                <a href="items.html">{{ worker.name }}</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

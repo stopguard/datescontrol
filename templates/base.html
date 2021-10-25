@@ -22,7 +22,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a href="#" class="show-hide-sidemenu navbar-brand"><i class="fas fa-bars"></i></a>
-            <a class="navbar-brand" href="{% url 'index' %}">Экзамены, аттестации, инструмент {{ today|date:'d.m.Y' }}</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Экзамены, аттестации,
+                инструмент {{ today|date:'d.m.Y' }}</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav nav-pills ms-auto">
                     <li class="nav-item">
@@ -70,13 +71,25 @@
         <div class="sidemenu">
             <div class="list-group shadow-sm">
                 <h2 class="list-group-item mb-0">Списки</h2>
-                <a href="{% url 'departaments' %}" class="list-group-item">
+                <a href="{% url 'departaments' %}" class="list-group-item
+                    {% if page_title == 'список сотрудников' %}
+                    active
+                    {% endif %}
+                    ">
                     Сотрудники
                 </a>
-                <a href="{% url 'items' %}" class="list-group-item">
+                <a href="{% url 'items' %}" class="list-group-item
+                {% if page_title == 'список предметов' %}
+                active
+                {% endif %}
+                ">
                     Предметы
                 </a>
-                <a href="{% url 'itemtypes' %}" class="list-group-item">
+                <a href="{% url 'itemtypes' %}" class="list-group-item
+                {% if page_title == 'типы предметов' %}
+                active
+                {% endif %}
+                ">
                     Виды&nbspпредметов
                 </a>
             </div>

@@ -36,8 +36,8 @@
                                             <tr>
                                                 <th>Тип удостоверений</th>
                                                 <th>Наименование</th>
-                                                <th>Интервал замены</th>
                                                 <th>Интервал аттестаций</th>
+                                                <th>Интервал замены</th>
                                                 <th>Перейти к выданным удостоверениям</th>
                                             </tr>
                                             </thead>
@@ -45,15 +45,15 @@
                                             <tr>
                                                 <th>Тип удостоверений</th>
                                                 <th>Наименование</th>
-                                                <th>Интервал замены</th>
                                                 <th>Интервал аттестаций</th>
+                                                <th>Интервал замены</th>
                                                 <th>Перейти к выданным удостоверениям</th>
                                             </tr>
                                             </tfoot>
                                             <tbody>
                                             {% for el in docs %}
                                             <tr>
-                                                <td><a href="item_group_details.html">{{ el.group }}</a></td>
+                                                <td><a href="item_group_details.html">{{ el.group.name }}</a></td>
                                                 <td><a href="item_type_details.html">{{ el.name }}</a></td>
                                                 <td>{{ el.test_interval }}</td>
                                                 <td>{{ el.change_interval }}</td>
@@ -106,7 +106,7 @@
                                             <tbody>
                                             {% for el in tools %}
                                             <tr>
-                                                <td><a href="item_group_details.html">{{ el.group }}</a></td>
+                                                <td><a href="item_group_details.html">{{ el.group.name }}</a></td>
                                                 <td><a href="item_type_details.html">{{ el.name }}</a></td>
                                                 <td>{{ el.test_interval }}</td>
                                                 <td>

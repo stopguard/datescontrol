@@ -172,7 +172,6 @@ class ItemModel(models.Model):
 
     def status(self):
         delta = self.delta()
-        print(delta)
         if delta > 90:
             return 0
         elif delta > 30:
