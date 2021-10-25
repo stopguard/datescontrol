@@ -2,7 +2,7 @@
     <select class="form-select-sm">
         <option selected>Город</option>
         {% for city in cities %}
-            <option value="{{ forloop.counter }}">{{ city }}</option>
+            <option value="{{ forloop.counter }}">{{ city.name }}</option>
         {% endfor %}
     </select>
 </li>
@@ -10,7 +10,7 @@
     <select class="form-select-sm">
         <option selected>Организация</option>
         {% for company in companies %}
-            <option value="{{ forloop.counter }}">{{ company }}</option>
+            <option value="{{ forloop.counter }}">{{ company.name }}</option>
         {% endfor %}
     </select>
 </li>
@@ -18,7 +18,7 @@
     <select class="form-select-sm">
         <option selected>Подразделение</option>
         {% for departament in departaments %}
-            <option value="{{ forloop.counter }}">{{ departament }}</option>
+            <option value="{{ forloop.counter }}">{{ departament.name }}</option>
         {% endfor %}
     </select>
 </li>
@@ -26,7 +26,7 @@
     <select class="form-select-sm">
         <option selected>Бригадир</option>
         {% for brigadier in brigadiers %}
-            <option value="{{ forloop.counter }}">{{ brigadier }}</option>
+            <option value="{{ forloop.counter }}">{{ brigadier.name }}</option>
         {% endfor %}
     </select>
 </li>

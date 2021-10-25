@@ -154,6 +154,62 @@ Stage2
 
 Stage3
 
+модели и бд
+
+создать модель для приложения
+в файле app_name/models.py
+создаём класс новой модели
+class CityModel(models.Model):
+    name = models.CharField('Филиал', max_length=256)
+    description = models.TextField('Примечание', blank=True)
+    photo = models.ImageField(upload_to='city_images', blank=True)
+    is_active = models.BooleanField('Активен', default=True)
+
+для текстовых полей если они необязательные должно быть свойство blank=True
+для числовых используем default=0
+для чарфилда обязательно параметр max_length
+для внешних ключей используется тип поля ForeignKey в аргументах указывается модель из которой берётся первичный ключ 
+    и аргумент on_delete указывающий действие для записей этой модели при удалении связанной записи внешнего ключа.
+
+
+для изображений upload_to
+    так же для изображений требуется прописать переменные:
+
+    в project_name/settings.py
+    добавляем переменные 
+    для веб адреса откуда запрашиваются изображения
+    MEDIA_URL = '/media_filder_path/'
+    для папки в проекте где они будут лежать
+    MEDIA_ROOT = BASE_DIR / 'media_filder_path'
+
+    в project_name/urls.py
+    импортируем
+    from django.conf import settings
+    from django.conf.urls.static import static
+    добавляем условие для дев-сервера
+    if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+после создания моделей создаём и накатываем миграции
+python manage.py makemigrations
+python manage.py migrate
+
+для добавления моделей во встроенную админку требуется зарегистрировать их
+в файле app_name/admin.py
+импортируем модели
+from app_name.models import ModelName1, ModelName2...
+
+регистрируем модели
+admin.site.register(ModelName1)
+admin.site.register(ModelName2)
+
+добавил тестовые данные в бд
+
+добавил логику в модель предметов
+доработал контекст и шаблон в модели пользователя
+
+...
 СБРОСИТЬ В ПРОЕКТ ВСЕ СТРАНИЦЫ И ОТРЕДАКТИРОВАТЬ ИХ ТОЖЕ
 
 после добавления бд
