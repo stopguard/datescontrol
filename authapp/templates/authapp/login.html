@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="w-100 d-flex justify-content-center">
+        <div class="w-25 mt-5 border border-secondary rounded p-3">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <input class="form-control" type="submit" value="Войти">
+            </form>
+            <a href="#" class="btn btn-light form-control">
+                Зарегистрироваться
+            </a>
+        </div>
+    </div>
+{% endblock %}

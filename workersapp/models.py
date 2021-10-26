@@ -54,7 +54,6 @@ class WorkerModel(models.Model):
     name = models.CharField('ФИО сотрудника', max_length=256)
     number = models.IntegerField('Табельный номер', default=0)
     description = models.TextField('Примечание', blank=True)
-    photo = models.ImageField('Фото', upload_to='photo', blank=True)
     is_brig = models.BooleanField('Бригадир', default=False)
     brig = models.ForeignKey('self',
                              on_delete=models.PROTECT,
