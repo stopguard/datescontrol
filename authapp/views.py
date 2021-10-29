@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from authapp.forms import UserLoginForm
+from authapp.forms import UserLoginForm, UserCreateForm
 
 
 def login(request):
@@ -36,4 +36,18 @@ def logout(request):
 
 
 def register(request):
-    pass
+    today = datetime.now() + timedelta(hours=5)
+    today = date(today.year, today.month, today.day)
+    if request.method == 'POST':
+        form = UserCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('auth:login'))
+    else:
+        form = UserCreateForm()
+
+    context = {'page_title': 'регистрация',
+               'form': form,
+               'today': today,
+               }
+    return render(request, 'authapp/register.html', context)

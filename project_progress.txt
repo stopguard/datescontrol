@@ -335,6 +335,12 @@ def logout(request):
             {% if user.is_authenticated %}
             {% if user.is_superuser %}
 
+
+Stage 5
+
+добавил регистрацию
+
+
 ...
 СБРОСИТЬ В ПРОЕКТ ВСЕ СТРАНИЦЫ И ОТРЕДАКТИРОВАТЬ ИХ ТОЖЕ после начала работы с формами
 
