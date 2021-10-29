@@ -214,15 +214,126 @@ admin.site.register(ModelName2)
 
 добавил модели в контекст
 
+распилил mainapp на приложения mainapp, itemtypesapp, workersapp
+
 
 
 Stage4
 
+добавил диспетчеры адресов
+в datescontrol/urls.py
+импортируем из django.urls функцию include
+для каждого приложения создаём паттерн с неймспейсом:
+path('<approotpath>/', include('<appname>.urls', namespace='<spacename>'))
+
+в каждой папке приложения создаём файл urls.py
+в нём 
+импортируем path из gjango.urls
+импортируем вьюхи приложения (import <appname>.views as <appname>)
+объявляем имя приложения (app_name = '<appname>')
+создаём переменную urlpatterns со списком паттернов:
+path('<viewrootpath>/', <appname|appname.views>.<viewname>, name='<alias>')
+
+ПЕРЕД ТЕМ КАК СОЗДАВАТЬ СВОЮ МОДЕЛЬ ПОЛЬЗОВАТЕЛЯ НУЖНО СОЗДАТЬ ФИКСТУРЫ ДАННЫХ ПО ПРИЛОЖЕНИЯМ
+python manage.py dumpdata <appname> > <appname>.json
+
+добавил в модель поля для фото, полного имени, телеграм-айди, списка телефонов
+
+python manage.py startapp "appname"
+для переопределения модели пользователя требуется унаследоваться от абстрактного пользователя джанго.
+в authapp/models.py
+импортируем AbstractUser из django.contrib.auth.models
+и создаём свою модель пользователя:
+class <UserModelName>(AbstractUser):
+    additional fields
+
+далее удаляем файл с БД, создаём и накатываем миграции.
+Создаём суперюзера
+python manage.py createsuperuser
+Восстанавливаем данные в бд
+python manage.py loaddata <dumpfilename>.json
+
+для форм в приложении где они требуются создаётся скрипт forms.py
+в файле authapp/forms.py
+импортируем AuthenticationForm из django.contrib.auth.forms
+создаём форму:
+class <FormName>(AuthenticationForm):
+    def __init__(self, *args, **kwargs):    # переопределяем конструктор формы
+        super().__init__(*args, **kwargs)   # пробрасываем приходящие данные дальше в родителя
+        for field_name, field in self.fields.items():  # забираем из словаря полей ключи-значения полей
+            field.widget.attrs['class'] = f'newclasses'  # добавляем новые классы в поля для стилизации
+
+так же можно более подробно расписать поля:
+    from django.contrib.auth import get_user_model
+    from django.contrib.auth.forms import UserChangeForm
+    from django.forms import forms
+    from django import forms as forms_lib
+
+    class ShopUserProfileForm(UserChangeForm):
+        first_name = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'class': 'form-control py-4',
+                                                                           'placeholder': 'Введите имя'}), required=False)
+        last_name = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'class': 'form-control py-4',
+                                                                          'placeholder': 'Введите фамилию'}),
+                                        required=False)
+        email = forms_lib.EmailField(widget=forms_lib.EmailInput(attrs={'class': 'form-control py-4',
+                                                                        'readonly': True}))
+        username = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'class': 'form-control py-4',
+                                                                         'readonly': True}))
+        avatar = forms_lib.ImageField(widget=forms_lib.FileInput(attrs={'class': 'custom-file-input'}), required=False)
+
+        class Meta:
+            model = get_user_model()
+            fields = ('username', 'first_name', 'last_name', 'email', 'avatar', 'password')
+
+        # кастомный валидатор формы
+        def clean_username(self):
+            u_name = self.cleaned_data['username']
+            if len(u_name) < 6:
+                raise forms.ValidationError('Длина имени пользователя должна быть не меньше 6 символов')
+            return u_name
+
+для авторизации требуется использовать метод POST для безопасности
+в файле authapp/views.py:
+для входа:
+def login(request):
+    if request.method == 'POST':                                # если метод POST
+        form = UserLoginForm(data=request.POST)                     # обогащаем форму данными
+        if form.is_valid():                                         # если форма валидная (если нет отсылаем форму обратно)
+            username = request.POST.get('username')                     # забираем из неё пользователя
+            password = request.POST.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if user and user.is_active:                                 # проверяем наличие активного юзера с такими данными
+                auth.login(request, user)                                   # генерим печеньку если он есть
+                return HttpResponseRedirect(reverse('main:index'))          # отсылаем на мэйн-индекс
+    else:
+        form = UserLoginForm()                                      # если метод не POST создаём форму и шлём юзеру
+
+    context = {'page_title': 'авторизация',
+               'form': form,
+               'today': today,
+               }
+    return render(request, 'authapp/login.html', context)
+
+для выхода:
+def logout(request):
+    auth.logout(request)        # удаляем печеньку sessionid
+    return HttpResponseRedirect(reverse('main:index'))
 
 
+создал страницу авторизации authapp/templates/authapp/login.html
+не забывать создавать csrf_token
+использовал автоматически сгенерированную джанго форму "form.as_p"
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <input class="form-control" type="submit" value="Войти">
+            </form>
 
-добавить диспетчеры адресов
-
+в templates/base.html
+добавил проверку на авторизацию и права суперпользователя:
+            {% if user.is_authenticated %}
+            {% if user.is_superuser %}
 
 ...
 СБРОСИТЬ В ПРОЕКТ ВСЕ СТРАНИЦЫ И ОТРЕДАКТИРОВАТЬ ИХ ТОЖЕ после начала работы с формами

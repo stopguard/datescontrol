@@ -1,7 +1,8 @@
 from django.db import models
 
+from authapp.models import CustomUser
 
-# Create your models here.
+
 class CityModel(models.Model):
     name = models.CharField('Филиал', max_length=256)
     description = models.TextField('Примечание', blank=True)
@@ -51,20 +52,19 @@ class DepartamentModel(models.Model):
 
 class WorkerModel(models.Model):
     departament = models.ForeignKey(DepartamentModel, on_delete=models.CASCADE)
-    name = models.CharField('ФИО сотрудника', max_length=256)
-    number = models.IntegerField('Табельный номер', default=0)
-    description = models.TextField('Примечание', blank=True)
-    photo = models.ImageField('Фото', upload_to='photo', blank=True)
-    is_brig = models.BooleanField('Бригадир', default=False)
+    linked_user = models.ForeignKey(CustomUser,
+                                    on_delete=models.SET_NULL,
+                                    blank=True, null=True)
     brig = models.ForeignKey('self',
                              on_delete=models.PROTECT,
                              limit_choices_to={'is_brig': True},
                              blank=True, null=True)
+    name = models.CharField('ФИО сотрудника', max_length=256)
+    number = models.IntegerField('Табельный номер', default=0)
+    description = models.TextField('Примечание', blank=True)
+    is_brig = models.BooleanField('Бригадир', default=False)
     is_company_leader = models.BooleanField('Руководитель орг.', default=False)
     is_departament_leader = models.BooleanField('Руководитель подр.', default=False)
-    telegram_id = models.IntegerField('Telegram ID', default=0)
-    email = models.EmailField('Email', blank=True)
-    phones = models.TextField('Телефоны', blank=True)
     is_active = models.BooleanField('Активен', default=True)
 
     def __str__(self):
