@@ -6,10 +6,10 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="">Регистрация</h1>
+                    <h1 class="">Профиль</h1>
                     <div class="card mb-4 shadow-sm">
                         <div class="card-header">
-                            <i class="fas fa-address-card"></i> Новый пользователь
+                            <i class="fas fa-address-card"></i> {{ user.full_name }}
                         </div>
                         <div class="container mt-1">
                             <div class="register-form">
@@ -39,6 +39,18 @@
                                             </button>
                                         </div>
                                     {% endif %}
+                                    <div class="row">
+                                        <div>
+                                            <img class="img-thumbnail mx-auto d-block"
+                                                    {% if user.photo %}
+                                                 src="{{ user.photo.url }}"
+                                                    {% else %}
+                                                 src="{% static 'images/product-4.jpg' %}"
+                                                    {% endif %}
+                                                 width="200"
+                                                 height="" alt="Фото пользователя">
+                                        </div>
+                                    </div>
                                     <form method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {{ form.non_field_errors }}
@@ -120,24 +132,11 @@
                                                 {{ form.email }}
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <label>Пароль</label>
-                                            <div class="input-group mb-2">
-                                                <label class="input-group-text"
-                                                       for="{{ form.password1.id_for_label }}">Пароль</label>
-                                                {{ form.password1 }}
-                                                <label class="input-group-text"
-                                                       for="{{ form.password2.id_for_label }}">Подтверждение</label>
-                                                {{ form.password2 }}
-                                            </div>
-                                        </div>
+                                                {{ form.password }}
                                         <input class="btn btn-outline-primary btn-block mb-2 float-right"
                                                type="submit"
-                                               value="Зарегистрироваться">
+                                               value="Сохранить">
                                     </form>
-                                    <a href="{% url 'auth:login' %}" class="btn btn-light form-control mb-2">
-                                        К авторизации
-                                    </a>
                                 </div>
                             </div>
                         </div>
