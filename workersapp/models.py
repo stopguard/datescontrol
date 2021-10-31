@@ -1,6 +1,5 @@
+from django.contrib.auth import get_user_model
 from django.db import models
-
-from authapp.models import CustomUser
 
 
 class CityModel(models.Model):
@@ -52,7 +51,7 @@ class DepartamentModel(models.Model):
 
 class WorkerModel(models.Model):
     departament = models.ForeignKey(DepartamentModel, on_delete=models.CASCADE)
-    linked_user = models.ForeignKey(CustomUser,
+    linked_user = models.ForeignKey(get_user_model(),
                                     on_delete=models.SET_NULL,
                                     blank=True, null=True)
     brig = models.ForeignKey('self',

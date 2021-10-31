@@ -406,6 +406,9 @@ from django import forms as forms_lib
 
 Stage 6
 
+добавить в контроллеры декоратор контроля авторизации @login_required
+добавить в settings.py LOGIN_URL = '/auth/login/'
+добавить работу по айдишникам
 
 
 ...
