@@ -17,8 +17,11 @@
                                     {% if form.errors %}
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert"
                                              style="margin-top: 50px;">
-                                            <strong>Внимание!</strong> Проверьте правильность введённых данных!
-                                            {{ form.errors }}
+                                            <strong>Внимание!</strong> Проверьте правильность введённых данных!<br><br>
+                                            {% for err in form.errors.values %}
+                                                {{ err }}
+                                            {% endfor %}
+
                                             <button type="button"
                                                     class="btn-close"
                                                     data-bs-dismiss="alert"

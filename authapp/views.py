@@ -9,8 +9,6 @@ from authapp.forms import UserLoginForm, UserCreateForm, UserProfileForm
 
 
 def login(request):
-    today = datetime.now() + timedelta(hours=5)
-    today = date(today.year, today.month, today.day)
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
@@ -25,7 +23,7 @@ def login(request):
 
     context = {'page_title': 'авторизация',
                'form': form,
-               'today': today,
+               'today': today(),
                }
     return render(request, 'authapp/login.html', context)
 
@@ -36,8 +34,6 @@ def logout(request):
 
 
 def register(request):
-    today = datetime.now() + timedelta(hours=5)
-    today = date(today.year, today.month, today.day)
     if request.method == 'POST':
         form = UserCreateForm(request.POST, request.FILES)
         if form.is_valid():
@@ -48,16 +44,14 @@ def register(request):
 
     context = {'page_title': 'регистрация',
                'form': form,
-               'today': today,
+               'today': today(),
                }
     return render(request, 'authapp/register.html', context)
 
 
 def profile(request):
-    today = datetime.now() + timedelta(hours=5)
-    today = date(today.year, today.month, today.day)
     if request.method == 'POST':
-        form = UserProfileForm(data=request.POST, files=request.FILES,
+        form = UserProfileForm(request.POST, request.FILES,
                                instance=request.user)
         if form.is_valid():
             form.save()
@@ -67,6 +61,11 @@ def profile(request):
 
     context = {'page_title': 'профиль',
                'form': form,
-               'today': today,
+               'today': today(),
                }
     return render(request, 'authapp/profile.html', context)
+
+
+def today():
+    to_day = datetime.now() + timedelta(hours=5)
+    return date(to_day.year, to_day.month, to_day.day)
