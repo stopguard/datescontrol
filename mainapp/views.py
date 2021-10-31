@@ -14,8 +14,6 @@ def index(request):
 
 
 def items(request):
-    today = datetime.now() + timedelta(hours=5)
-    today = date(today.year, today.month, today.day)
     gived_items = ItemModel.objects.filter(is_active=True, worker__is_active=True, item_type__is_active=True)
     city_list = CityModel.objects.filter(is_active=True)
     company_list = CompanyModel.objects.filter(is_active=True)
@@ -29,6 +27,11 @@ def items(request):
                'departaments': departament_list,
                'brigadiers': brigadier_list,
                'item_types': item_list,
-               'today': today,
+               'today': today(),
                }
     return render(request, 'mainapp/items.html', context)
+
+
+def today():
+    to_day = datetime.now() + timedelta(hours=5)
+    return date(to_day.year, to_day.month, to_day.day)

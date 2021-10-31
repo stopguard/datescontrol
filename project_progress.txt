@@ -263,35 +263,6 @@ class <FormName>(AuthenticationForm):
         for field_name, field in self.fields.items():  # забираем из словаря полей ключи-значения полей
             field.widget.attrs['class'] = f'newclasses'  # добавляем новые классы в поля для стилизации
 
-так же можно более подробно расписать поля:
-    from django.contrib.auth import get_user_model
-    from django.contrib.auth.forms import UserChangeForm
-    from django.forms import forms
-    from django import forms as forms_lib
-
-    class ShopUserProfileForm(UserChangeForm):
-        first_name = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'class': 'form-control py-4',
-                                                                           'placeholder': 'Введите имя'}), required=False)
-        last_name = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'class': 'form-control py-4',
-                                                                          'placeholder': 'Введите фамилию'}),
-                                        required=False)
-        email = forms_lib.EmailField(widget=forms_lib.EmailInput(attrs={'class': 'form-control py-4',
-                                                                        'readonly': True}))
-        username = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'class': 'form-control py-4',
-                                                                         'readonly': True}))
-        avatar = forms_lib.ImageField(widget=forms_lib.FileInput(attrs={'class': 'custom-file-input'}), required=False)
-
-        class Meta:
-            model = get_user_model()
-            fields = ('username', 'first_name', 'last_name', 'email', 'avatar', 'password')
-
-        # кастомный валидатор формы
-        def clean_username(self):
-            u_name = self.cleaned_data['username']
-            if len(u_name) < 6:
-                raise forms.ValidationError('Длина имени пользователя должна быть не меньше 6 символов')
-            return u_name
-
 для авторизации требуется использовать метод POST для безопасности
 в файле authapp/views.py:
 для входа:
@@ -334,6 +305,108 @@ def logout(request):
 добавил проверку на авторизацию и права суперпользователя:
             {% if user.is_authenticated %}
             {% if user.is_superuser %}
+
+
+Stage 5
+
+добавил регистрацию и редактирование профиля
+
+в файле authapp/forms.py
+создал формы регистрации и редактирования профиля:
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django import forms as forms_lib
+
+    class UserCreateForm(UserCreationForm):
+        username = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'placeholder': 'username'}),
+                                       required=True)
+        full_name = forms_lib.CharField(widget=forms_lib.TextInput(attrs={'placeholder': 'Иванов Иван Иванович'}),
+                                        required=True)
+        email = forms_lib.EmailField(widget=forms_lib.EmailInput(attrs={'placeholder': 'ivanov@mail.ru'}),
+                                     required=True)
+        photo = forms_lib.ImageField(widget=forms_lib.FileInput(attrs={'class': 'custom-file-input'}),
+                                     required=False)
+        number = forms_lib.IntegerField(widget=forms_lib.NumberInput(attrs={'placeholder': '1234'}),
+                                        required=True)
+        telegram_id = forms_lib.IntegerField(widget=forms_lib.NumberInput(attrs={'placeholder': '12345678'}),
+                                             required=False)
+
+        # обязателен для наследников ModelForm которыми являются UserCreationForm и UserChangeForm
+        # тут описываем на какой модели базируется форма и изменения каких полей отслеживать
+        # в форме создания пользователя вместо password используются password1 и password2
+        class Meta:
+            model = get_user_model()
+            fields = ('username', 'full_name', 'number', 'email', 'password1', 'password2', 'photo', 'telegram_id')
+
+        # добавляем классы в поля формы
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field_name, field in self.fields.items():
+            # для скрытия поля с паролем в форме профиля
+                if field_name == 'password':
+                    field.widget = forms_lib.HiddenInput()
+                    continue
+                field.widget.attrs['class'] = f'form-control {field_name}'
+
+        # кастомный валидатор формы
+        def clean_username(self):
+            u_name = self.cleaned_data['username']
+            if len(u_name) < 6:
+                raise forms.ValidationError('Длина имени пользователя должна быть не меньше 6 символов')
+            return u_name
+
+добавил шаблоны для форм.
+для отображения ошибок:
+                                    {% if form.errors %}
+                                            {% for err in form.errors.values %}
+                                                {{ err }}
+                                            {% endfor %}
+                                    {% endif %}
+
+для правильного сохранения рисунков не забыть указать параметр enctype:
+                <form method="post" enctype="multipart/form-data">
+
+в модели поле должен быть параметр upload_to:
+    photo = models.ImageField('Фото', upload_to='photo', blank=True)
+
+в файле authapp/views.py
+добавляются контроллеры для регистрации и профиля
+    def register(request):
+        if request.method == 'POST':
+            # для сохранения файлов из формы указывать параметр request.FILES
+            form = UserCreateForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('auth:login'))
+        else:
+            form = UserCreateForm()
+
+        context = {'page_title': 'регистрация',
+                   'form': form,
+                   'today': today(),
+                   }
+        return render(request, 'authapp/register.html', context)
+
+
+    # для привязки формы к пользователю указывать параметр instance
+    # при пост запросе:
+            form = UserProfileForm(request.POST, request.FILES,
+                                   instance=request.user)
+    # при гет запросе:
+            form = UserProfileForm(instance=request.user)
+
+    # для возвращения на предыдущую страницу:
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+вынес функцию определения даты из контроллеров
+
+
+
+Stage 6
+
+
 
 ...
 СБРОСИТЬ В ПРОЕКТ ВСЕ СТРАНИЦЫ И ОТРЕДАКТИРОВАТЬ ИХ ТОЖЕ после начала работы с формами

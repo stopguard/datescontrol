@@ -7,12 +7,13 @@
             <div class="alert alert-warning text-center" role="alert">
                 Пожалуйста <a href="{% url 'auth:login' %}" class="alert-link">авторизуйтесь</a>!
             </div>
+        {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                ВНИМАНИЕ! Приближается окончание сроков действия!
+            </div>
+            <div class="alert alert-danger text-center" role="alert">
+                ВНИМАНИЕ! Имеются просрочки!
+            </div>
         {% endif %}
-        <div class="alert alert-warning text-center" role="alert">
-            ВНИМАНИЕ! Приближается окончание сроков действия!
-        </div>
-        <div class="alert alert-danger text-center" role="alert">
-            ВНИМАНИЕ! Имеются просрочки!
-        </div>
     </div>
 {% endblock %}

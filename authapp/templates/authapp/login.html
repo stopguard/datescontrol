@@ -3,6 +3,20 @@
 
 {% block content %}
     <div class="w-100 d-flex justify-content-center">
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert"
+                 style="margin-top: 50px;">
+                <strong>Успешно!</strong>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close">
+                </button>
+            </div>
+        {% endif %}
         <div class="w-25 mt-5 border border-secondary rounded p-3">
             <form class="form" method="post">
                 {% csrf_token %}
@@ -10,8 +24,8 @@
                 <br>
                 <input class="form-control" type="submit" value="Войти">
             </form>
-            <a href="{% url 'auth:register' %}" class="btn btn-light form-control">
-                Зарегистрироваться
+            <a href="{% url 'auth:register' %}" class="btn btn-light form-control mt-2">
+                К регистрации
             </a>
         </div>
     </div>

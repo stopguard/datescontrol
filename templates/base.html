@@ -10,8 +10,8 @@
     <title>Аудит дат. {{ page_title|capfirst }}</title>
 
     {% block css %}
-        <link href="{% static 'css/all.css' %}" rel="stylesheet">
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/all.css' %}" rel="stylesheet">
     {% endblock %}
 
 </head>
@@ -29,7 +29,7 @@
 
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link userprofile text-body" href="profile.html">
+                            <a class="nav-link userprofile text-body" href="{% url 'auth:profile' %}">
                                 <i class="fas fa-user-circle"></i>
                                 <i class="fas fa-bell text-warning"></i>
                                 {{ user.username|title }}

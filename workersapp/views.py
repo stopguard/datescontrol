@@ -7,8 +7,6 @@ from workersapp.models import CityModel, CompanyModel, DepartamentModel, WorkerM
 
 # Create your views here.
 def workers(request):
-    today = datetime.now() + timedelta(hours=5)
-    today = date(today.year, today.month, today.day)
     worker_list = WorkerModel.objects.filter(is_active=True)
     city_list = CityModel.objects.filter(is_active=True)
     company_list = CompanyModel.objects.filter(is_active=True)
@@ -20,6 +18,11 @@ def workers(request):
                'departaments': departament_list,
                'brigadiers': brigadier_list,
                'workers': worker_list,
-               'today': today,
+               'today': today(),
                }
     return render(request, 'workersapp/workers.html', context)
+
+
+def today():
+    to_day = datetime.now() + timedelta(hours=5)
+    return date(to_day.year, to_day.month, to_day.day)
