@@ -1,6 +1,7 @@
 from datetime import date, timedelta, datetime
 
-from django.contrib import auth
+from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -38,6 +39,7 @@ def register(request):
         form = UserCreateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Пользователь зарегистрирован!')
             return HttpResponseRedirect(reverse('auth:login'))
     else:
         form = UserCreateForm()
@@ -49,12 +51,14 @@ def register(request):
     return render(request, 'authapp/register.html', context)
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES,
                                instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Профиль отредактирован!')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         form = UserProfileForm(instance=request.user)

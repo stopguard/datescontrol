@@ -2,136 +2,150 @@
 {% load static %}
 
 {% block content %}
-    <div class="flex-grow-1">
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-                    <h1 class="">Виды инструмента и удостоверений</h1>
-                    <!-- Tab menu -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                    type="button" role="tab" aria-controls="home" aria-selected="true">Удостоверения
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                                    type="button"
-                                    role="tab" aria-controls="profile" aria-selected="false">Инструмент
-                            </button>
-                        </li>
-                    </ul>
-                    <!-- /Tab menu -->
-                    <div class="tab-content" id="myTabContent">
-                        <!-- Documents tab -->
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="card mb-4 shadow-sm">
-                                <div class="card-header">
-                                    <i class="fas fa-table mr-1"></i> Виды удостоверений
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                            <tr>
-                                                <th>Тип удостоверений</th>
-                                                <th>Наименование</th>
-                                                <th>Интервал аттестаций</th>
-                                                <th>Интервал замены</th>
-                                                <th>Перейти к выданным удостоверениям</th>
-                                            </tr>
-                                            </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <th>Тип удостоверений</th>
-                                                <th>Наименование</th>
-                                                <th>Интервал аттестаций</th>
-                                                <th>Интервал замены</th>
-                                                <th>Перейти к выданным удостоверениям</th>
-                                            </tr>
-                                            </tfoot>
-                                            <tbody>
-                                            {% for el in docs %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+
+{{ block.super }}
+
+                <h1 class="">Виды инструмента и удостоверений</h1>
+                <!-- Tab menu -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab" aria-controls="home" aria-selected="true">Удостоверения
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                type="button"
+                                role="tab" aria-controls="profile" aria-selected="false">Инструмент
+                        </button>
+                    </li>
+                </ul>
+                <!-- /Tab menu -->
+                <div class="tab-content" id="myTabContent">
+                    <!-- Documents tab -->
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i> Виды удостоверений
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>Тип удостоверений</th>
+                                            <th>Наименование</th>
+                                            <th>Интервал аттестаций</th>
+                                            <th>Интервал замены</th>
+                                            <th>Перейти к выданным удостоверениям</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Тип удостоверений</th>
+                                            <th>Наименование</th>
+                                            <th>Интервал аттестаций</th>
+                                            <th>Интервал замены</th>
+                                            <th>Перейти к выданным удостоверениям</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        {% for el in docs %}
                                             <tr>
                                                 <td><a href="item_group_details.html">{{ el.group.name }}</a></td>
                                                 <td><a href="item_type_details.html">{{ el.name }}</a></td>
                                                 <td>{{ el.test_interval }}</td>
                                                 <td>{{ el.change_interval }}</td>
                                                 <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Этот тип
-                                                        удостоверений</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
+                                                    <a href="{% url 'main:group_filter' el.group_id %}"
+                                                       class="btn btn-secondary btn-sm"
+                                                    >
+                                                        Этот тип удостоверений
+                                                    </a>
+                                                    <a href="{% url 'main:type_filter' el.id %}"
+                                                       class="btn btn-secondary btn-sm"
+                                                    >
+                                                        Это наименование
+                                                    </a>
                                                 </td>
                                             </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="item_group_details.html" class="btn btn-outline-primary btn-block">Добавить
-                                        группу</a>
-                                    <a href="item_type_details.html" class="btn btn-outline-primary btn-block">Добавить
-                                        тип
-                                        предмета</a>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+                            <div class="card-footer">
+                                <a href="item_group_details.html" class="btn btn-outline-primary btn-block">Добавить
+                                    группу</a>
+                                <a href="item_type_details.html" class="btn btn-outline-primary btn-block">Добавить
+                                    тип
+                                    предмета</a>
+                            </div>
                         </div>
-                        <!-- Tools Tab -->
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="card mb-4 shadow-sm">
-                                <div class="card-header">
-                                    <i class="fas fa-table mr-1"></i> Виды инструмента
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                            <tr>
-                                                <th>Группа инструмента</th>
-                                                <th>Наименование</th>
-                                                <th>Интервал проверки</th>
-                                                <th>Перейти к выданному инструменту</th>
-                                            </tr>
-                                            </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <th>Группа инструмента</th>
-                                                <th>Наименование</th>
-                                                <th>Интервал проверки</th>
-                                                <th>Перейти к выданному инструменту</th>
-                                            </tr>
-                                            </tfoot>
-                                            <tbody>
-                                            {% for el in tools %}
+                    </div>
+                    <!-- Tools Tab -->
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i> Виды инструмента
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>Группа инструмента</th>
+                                            <th>Наименование</th>
+                                            <th>Интервал проверки</th>
+                                            <th>Перейти к выданному инструменту</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Группа инструмента</th>
+                                            <th>Наименование</th>
+                                            <th>Интервал проверки</th>
+                                            <th>Перейти к выданному инструменту</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        {% for el in tools %}
                                             <tr>
                                                 <td><a href="item_group_details.html">{{ el.group.name }}</a></td>
                                                 <td><a href="item_type_details.html">{{ el.name }}</a></td>
                                                 <td>{{ el.test_interval }}</td>
                                                 <td>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Вся группа</a>
-                                                    <a href="items.html" class="btn btn-secondary btn-sm">Это
-                                                        наименование</a>
+                                                    <a href="{% url 'main:group_filter' el.group_id %}"
+                                                       class="btn btn-secondary btn-sm"
+                                                    >
+                                                        Эта группа инструмента
+                                                    </a>
+                                                    <a href="{% url 'main:type_filter' el.id %}"
+                                                       class="btn btn-secondary btn-sm"
+                                                    >
+                                                        Это наименование
+                                                    </a>
                                                 </td>
                                             </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="card-footer">
-                                    <a href="item_group_details.html" class="btn btn-outline-primary btn-block">Добавить
-                                        группу</a>
-                                    <a href="item_type_details.html" class="btn btn-outline-primary btn-block">Добавить
-                                        тип
-                                        предмета</a>
-                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="item_group_details.html" class="btn btn-outline-primary btn-block">Добавить
+                                    группу</a>
+                                <a href="item_type_details.html" class="btn btn-outline-primary btn-block">Добавить
+                                    тип
+                                    предмета</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
 {% endblock %}

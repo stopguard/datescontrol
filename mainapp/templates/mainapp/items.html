@@ -2,113 +2,145 @@
 {% load static %}
 
 {% block content %}
-    <div class="flex-grow-1">
-        <!--Content top-menu-->
-        <ul class="nav shadow-sm">
-            <div class="d-flex mt-1 ms-1 mb-1">
-                {% include 'includes/brig_checker.html' %}
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Тип</option>
-                        <option value="1">Инструмент</option>
-                        <option value="2">Удостоверение</option>
-                    </select>
-                </li>
-                <li class="nav-item dropdown">
-                    <select class="form-select-sm">
-                        <option selected>Наименование</option>
-                        {% for item in item_types %}
-                            <option value="{{ forloop.counter }}">{{ item.name }}</option>
-                        {% endfor %}
-                    </select>
-                </li>
-                <li class="nav-item d-flex align-items-center">
-                    <div class="form-check mx-2">
-                        <input class="form-check-input" type="checkbox" value="" id="showAllGroups">
-                        <label class="form-check-label" for="showAllGroups">
-                            Все группы
-                        </label>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="btn btn-outline-primary btn-sm">Запросить</a>
-                </li>
-            </div>
-        </ul>
-        <!--/Content top-menu-->
+    <!--Content top-menu-->
+    <ul class="nav shadow-sm">
+        <div class="d-flex mt-1 ms-1 mb-1">
+            {% include 'includes/brig_checker.html' %}
+            <li class="nav-item dropdown">
+                <select class="form-select-sm">
+                    <option selected>Тип</option>
+                    <option value="1">Инструмент</option>
+                    <option value="2">Удостоверение</option>
+                </select>
+            </li>
+            <li class="nav-item dropdown">
+                <select class="form-select-sm">
+                    <option selected>Наименование</option>
+                    {% for item in item_types %}
+                        <option value="{{ forloop.counter }}">{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <div class="form-check mx-2">
+                    <input class="form-check-input" type="checkbox" value="" id="showAllGroups">
+                    <label class="form-check-label" for="showAllGroups">
+                        Вся группа
+                    </label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="AJAX" class="btn btn-outline-primary btn-sm">Запросить</a>
+            </li>
+        </div>
+    </ul>
+    <!--/Content top-menu-->
+
+    <!-- Site path -->
+    {% if items %}
         <p class="ms-3 mt-3 mb-0">
-            <a href="items.html">г. Нефтекамск</a> > <a href="items.html">ООО СВОС</a> >
-            <a href="items.html">Отдел оптиков-сварщиков</a> > бр. Удинский Дмитрий Игоревич
+            {% if detail != 'All' %}
+                <a href="{% url 'main:city_filter' items.first.worker.departament.company.city_id %}">
+                    {{ items.first.worker.departament.company.city.name }}
+                </a>
+            {% endif %}
+            {% if detail != 'All' and detail != 'City' %}
+                >
+                <a href="{% url 'main:company_filter' items.first.worker.departament.company_id %}">
+                    {{ items.first.worker.departament.company.name }}
+                </a>
+            {% endif %}
+            {% if detail != 'All' and detail != 'City' and detail != 'Company' %}
+                >
+                <a href="{% url 'main:departament_filter' items.first.worker.departament_id %}">
+                    {{ items.first.worker.departament.name }}
+                </a>
+            {% endif %}
+            {% if detail == 'Brig' or detail == 'Worker' %}
+                >
+                <a href="{% url 'main:brig_filter' items.first.worker.brig_id %}">
+                    бр. {{ items.first.worker.brig.name }}
+                </a>
+            {% endif %}
+            {% if detail == 'Worker' %}
+                > {{ items.first.worker.name }}
+            {% endif %}
         </p>
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-                    <h1 class="">Сроки действия инструмента и удостоверений</h1>
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i> Полный список
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th>Организация</th>
-                                        <th>Подразделение</th>
-                                        <th>ФИО</th>
-                                        <th>Наименование</th>
-                                        <th>
-                                            <div class="dropdown">
-                                                <a class="dropdown-toggle text-reset" href="#" role="button"
-                                                   id="dropdownMenuLink"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    ИН
-                                                </a>
+    {% endif %}
+    <!-- /Site path -->
 
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li>
-                                                        <p class="dropdown-item mb-0">Инвентарный номер</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </th>
-                                        <th>Проверка от</th>
-                                        <th>Выдача от</th>
-                                        <th>Действует до</th>
-                                        <th>Сохранить</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Организация</th>
-                                        <th>Подразделение</th>
-                                        <th>ФИО</th>
-                                        <th>Наименование</th>
-                                        <th>
-                                            <div class="dropdown">
-                                                <a class="dropdown-toggle text-reset" href="#" role="button"
-                                                   id="dropdownMenuLink"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    ИН
-                                                </a>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
 
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li>
-                                                        <p class="dropdown-item mb-0">Инвентарный номер</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </th>
-                                        <th>Проверка от</th>
-                                        <th>Выдача от</th>
-                                        <th>Действует до</th>
-                                        <th>Сохранить</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
+                {{ block.super }}
 
-                                    {% for el in items %}
-                                        <tr class="
+                <h1 class="">Сроки действия инструмента и удостоверений</h1>
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i> Полный список
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Организация</th>
+                                    <th>Подразделение</th>
+                                    <th>ФИО</th>
+                                    <th>Наименование</th>
+                                    <th>
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle text-reset" href="#" role="button"
+                                               id="dropdownMenuLink"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                ИН
+                                            </a>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <li>
+                                                    <p class="dropdown-item mb-0">Инвентарный номер</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </th>
+                                    <th>Проверка от</th>
+                                    <th>Выдача от</th>
+                                    <th>Действует до</th>
+                                    <th>Сохранить</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Организация</th>
+                                    <th>Подразделение</th>
+                                    <th>ФИО</th>
+                                    <th>Наименование</th>
+                                    <th>
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle text-reset" href="#" role="button"
+                                               id="dropdownMenuLink"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                ИН
+                                            </a>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <li>
+                                                    <p class="dropdown-item mb-0">Инвентарный номер</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </th>
+                                    <th>Проверка от</th>
+                                    <th>Выдача от</th>
+                                    <th>Действует до</th>
+                                    <th>Сохранить</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+
+                                {% for el in items %}
+                                    <tr class="
                                                 {% if el.status == 1 %}
                                                     table-info
                                                 {% elif el.status == 2 %}
@@ -117,50 +149,51 @@
                                                     table-danger
                                                 {% endif %}
                                         ">
-                                            <td><a href="company_form.html">{{ el.worker.departament.company.name }}</a></td>
-                                            <td><a href="departament_form.html">{{ el.worker.departament.name }}</a></td>
-                                            <td><a href="profile.html">{{ el.worker.name }}</a></td>
-                                            <td>
-                                                {% if el.item_type.group.doc_or_tool == 'Удостоверение' %}
-                                                    <i class="far fa-address-card"></i>
-                                                {% else %}
-                                                    <i class="fas fa-tools"></i>
-                                                {% endif %}
-                                                <a href="gived_item_details.html">{{ el.item_type.name }}</a>
-                                            </td>
-                                            <td>{{ el.inventory_number }}</td>
-                                            <td class="text-center"><input type="date" class="btn btn-light btn-sm"
-                                                                           name="check"
-                                                                           value="{{ el.test_for|date:'Y-m-d' }}"
-                                            ></td>
-                                            <td class="text-center">
-                                                {% if el.item_type.group.doc_or_tool == 'Удостоверение' %}
-                                                    <input type="date" class="btn btn-light btn-sm"
-                                                           name="test"
-                                                           value="{{ el.change_for|date:'Y-m-d' }}"
-                                                    >
-                                                {% endif %}
-                                            </td>
-                                            <td class="text-center">
+                                        <td><a href="company_form.html">{{ el.worker.departament.company.name }}</a>
+                                        </td>
+                                        <td><a href="departament_form.html">{{ el.worker.departament.name }}</a></td>
+                                        <td><a href="{% url 'workers:info' el.worker_id %}">{{ el.worker.name }}</a>
+                                        </td>
+                                        <td>
+                                            {% if el.item_type.group.doc_or_tool == 'Удостоверение' %}
+                                                <i class="far fa-address-card"></i>
+                                            {% else %}
+                                                <i class="fas fa-tools"></i>
+                                            {% endif %}
+                                            <a href="gived_item_details.html">{{ el.item_type.name }}</a>
+                                        </td>
+                                        <td>{{ el.inventory_number }}</td>
+                                        <td class="text-center"><input type="date" class="btn btn-light btn-sm"
+                                                                       name="check"
+                                                                       value="{{ el.test_for|date:'Y-m-d' }}"
+                                        ></td>
+                                        <td class="text-center">
+                                            {% if el.item_type.group.doc_or_tool == 'Удостоверение' %}
                                                 <input type="date" class="btn btn-light btn-sm"
-                                                       name="to"
-                                                       value="{{ el.elapse|date:'Y-m-d' }}"
+                                                       name="test"
+                                                       value="{{ el.change_for|date:'Y-m-d' }}"
                                                 >
-                                            </td>
-                                            <td><a href="#" class="btn btn-secondary btn-sm">Сохранить</a></td>
-                                        </tr>
-                                    {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="date" class="btn btn-light btn-sm"
+                                                   name="to"
+                                                   value="{{ el.elapse|date:'Y-m-d' }}"
+                                            >
+                                        </td>
+                                        <td><a href="#" class="btn btn-secondary btn-sm">Сохранить</a></td>
+                                    </tr>
+                                {% endfor %}
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <div class="card-footer">
+
+                    </div>
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
 {% endblock %}
