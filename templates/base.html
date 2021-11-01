@@ -29,7 +29,15 @@
 
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link userprofile text-body" href="{% url 'auth:profile' %}">
+                            <a class="nav-link userprofile text-body"
+                               href="
+                                    {% if user.is_linked %}
+                                        {% url 'workers:info' user.linked_worker.pk %}
+                                    {% else %}
+                                        {% url 'auth:profile' %}
+                                    {% endif %}
+                               "
+                            >
                                 <i class="fas fa-user-circle"></i>
                                 <i class="fas fa-bell text-warning"></i>
                                 {{ user.username|title }}
@@ -113,9 +121,24 @@
         <!--/Side menu-->
 
         <!-- Content -->
-        {% block content %}
-
-        {% endblock %}
+        <div class="flex-grow-1">
+            {% block content %}
+                {% if messages %}
+                    <div class="flex-grow-1">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} text-center m-1" role="alert">
+                                <button type="button"
+                                        class="btn-close float-right"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close">
+                                </button>
+                                <p class="m-0">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
         <!--/Content -->
     </div>
 </div>

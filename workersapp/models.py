@@ -11,6 +11,13 @@ class CityModel(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    def workers(self, brig_only=False):
+        companies = self.companymodel_set.filter(is_active=True)
+        departaments = DepartamentModel.objects.filter(company__in=companies, is_active=True)
+        return WorkerModel.objects.filter(departament__in=departaments, is_brig=True, is_active=True) \
+            if brig_only \
+            else WorkerModel.objects.filter(departament__in=departaments, is_active=True)
+
     class Meta:
         verbose_name = 'Филиал'
         verbose_name_plural = 'Филиалы'
@@ -27,6 +34,12 @@ class CompanyModel(models.Model):
     def __str__(self):
         return f'{self.name} ({self.city.name})'
 
+    def workers(self, brig_only=False):
+        departaments = self.departamentmodel_set.filter(is_active=True)
+        return WorkerModel.objects.filter(departament__in=departaments, is_brig=True, is_active=True) \
+            if brig_only \
+            else WorkerModel.objects.filter(departament__in=departaments, is_active=True)
+
     class Meta:
         verbose_name = 'Организация'
         verbose_name_plural = 'Организации'
@@ -42,6 +55,11 @@ class DepartamentModel(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.company.name}-{self.company.city.name})'
+
+    def workers(self, brig_only=False):
+        return self.workermodel_set.filter(is_brig=True, is_active=True) \
+            if brig_only \
+            else self.workermodel_set.filter(is_active=True)
 
     class Meta:
         verbose_name = 'Подразделение'
@@ -67,7 +85,7 @@ class WorkerModel(models.Model):
     is_active = models.BooleanField('Активен', default=True)
 
     def __str__(self):
-        return f'{self.name} ({self.departament.name}-{self.departament.company.name})'
+        return f'{self.name} ({self.departament.name}-{self.departament.company.city.name})'
 
     @property
     def status(self):
@@ -84,7 +102,7 @@ class WorkerModel(models.Model):
     @property
     def brig_status(self):
         if self.is_brig:
-            workers = WorkerModel.objects.filter(departament=self.departament, brig=self, is_active=True)
+            workers = self.workermodel_set.filter(is_active=True)
             result = 0
             for worker in workers:
                 status = worker.status
@@ -94,6 +112,16 @@ class WorkerModel(models.Model):
                         break
             return result
         return 0
+
+    @property
+    def tools(self):
+        tools_set = self.itemmodel_set.filter(item_type__group__doc_or_tool='Инструмент', is_active=True)
+        return sorted(tools_set, reverse=True, key=lambda itm: itm.status)
+
+    @property
+    def docs(self):
+        docs_set = self.itemmodel_set.filter(item_type__group__doc_or_tool='Удостоверение', is_active=True)
+        return sorted(docs_set, reverse=True, key=lambda itm: itm.status)
 
     class Meta:
         verbose_name = 'Сотрудник'
